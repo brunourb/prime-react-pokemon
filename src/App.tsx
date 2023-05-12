@@ -18,7 +18,7 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/" component={PokemonList} />
+          <Route exact path="/" component={PokemonList} />
           <Route path="/pokemon/:id" component={PokemonDetails} />
         </Switch>
       </div>

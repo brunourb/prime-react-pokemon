@@ -5,7 +5,8 @@ import axios from "axios";
 
 const PokemonList = () => {
   const [pokemons, setPokemons] = useState([]);
-//Neste utilizand o axios que é um componente para fazer o consumo de serviço
+  const [url, setUrl] = useState<number>();
+
   useEffect(() => {
     axios
       .get("https://pokeapi.co/api/v2/pokemon/")
