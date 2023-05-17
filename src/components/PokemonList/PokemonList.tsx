@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import axios from "axios";
+import Menu from "../Menu/Menu";
 
 const PokemonList = () => {
   const [pokemons, setPokemons] = useState([]);
-  const [url, setUrl] = useState<number>();
-
+//Neste utilizand o axios que é um componente para fazer o consumo de serviço
   useEffect(() => {
     axios
       .get("https://pokeapi.co/api/v2/pokemon/")

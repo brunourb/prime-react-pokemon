@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import axios from "axios";
@@ -9,10 +9,37 @@ const PokemonDetails = () => {
   const [pokemon, setPokemon] = useState<PokemonModel>();
   const { id } = useParams<{id: string}>();
 
-  useEffect(() => {
+  const [loading, setLoading] = useState(false);
+
+  const buttonRef = useRef(null);
+  const history = useHistory();
+
+
+  const load = () => {
+      setLoading(true);
+
+      setTimeout(() => {
+          setLoading(false);
+      }, 2000);
+  };
+
+
+  function loadPage(){
     axios
       .get(`https://pokeapi.co/api/v2/pokemon/${id}`)
       .then((response) => setPokemon(response.data));
+  }
+
+  
+  function cliquei(){
+    load();
+    //history.push(`/edit/${id}`)
+    //window.location.href=`/edit/${id}`;
+    window.location.replace(`/edit/${id}`);
+  }
+
+  useEffect(() => {
+    loadPage()
   },[]);
 
   if (!pokemon) return null;
@@ -26,6 +53,10 @@ const PokemonDetails = () => {
             label="Edit"
             icon="pi pi-pencil"
             className="p-mr-2 p-button-success"
+            ref={buttonRef}
+            loading={loading}
+            onClick={cliquei} 
+            
           />
           <Button
             label="Delete"
@@ -39,3 +70,4 @@ const PokemonDetails = () => {
 };
 
 export default PokemonDetails;
+
